@@ -4,7 +4,7 @@ let currentDateOffset = 0;
 
 async function loadQuotesDatabase() {
   try {
-    const response = await fetch(chrome.runtime.getURL("public/quotes-database.json"));
+    const response = await fetch("./public/quotes-database.json");
     return await response.json();
   } catch (error) {
     console.error("Failed to load quotes database:", error);
