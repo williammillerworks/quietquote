@@ -1,0 +1,13 @@
+{
+  "name": "quietquote",
+  "version": "1.0.0",
+  "description": "Daily Quote Website with Language Selector",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 3000"
+  },
+  "keywords": ["quotes", "daily", "inspiration"],
+  "author": "William Miller",
+  "license": "MIT"
+}
