@@ -114,7 +114,7 @@ body {
   display: none;
 }
 
-/* Language Selector */
+/* Minimal Language Selector */
 .language-selector {
   position: fixed;
   bottom: 2.5rem;
@@ -123,92 +123,82 @@ body {
 }
 
 .language-button {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
+  background: none;
+  border: none;
+  padding: 0;
   font-size: 0.75rem;
-  font-weight: 500;
-  color: #333;
+  font-weight: 400;
+  color: #bbb;
   cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 80px;
-  justify-content: space-between;
+  transition: color 0.3s ease;
+  font-family: "Inter", sans-serif;
 }
 
 .language-button:hover {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.language-button.active {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.2);
+  color: #888;
 }
 
 .language-chevron {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.2s ease;
-  opacity: 0.6;
-}
-
-.language-button.active .language-chevron {
-  transform: rotate(180deg);
+  display: none;
 }
 
 .language-dropdown {
   position: absolute;
   bottom: 100%;
   left: 0;
-  right: 0;
   margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background: #faf9f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   opacity: 0;
-  transform: translateY(8px) scale(0.95);
+  transform: translateY(8px);
   transition: all 0.2s ease;
   pointer-events: none;
   overflow: hidden;
+  min-width: 100px;
 }
 
 .language-dropdown.show {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .language-option {
   padding: 0.5rem 0.75rem;
   font-size: 0.75rem;
-  font-weight: 500;
-  color: #333;
+  font-weight: 400;
+  color: #bbb;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: color 0.2s ease;
   border: none;
   background: none;
   width: 100%;
   text-align: left;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .language-option:hover {
-  background: rgba(0, 0, 0, 0.05);
+  color: #888;
 }
 
 .language-option.selected {
-  background: rgba(0, 0, 0, 0.08);
-  color: #000;
+  color: #bbb;
+}
+
+.language-option .checkmark {
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.language-option.selected .checkmark {
+  opacity: 1;
 }
 
 /* Subtle fade-in animation */
