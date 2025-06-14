@@ -4,7 +4,10 @@ let currentLanguage = 'en';
 
 async function loadQuotesDatabase() {
   try {
-    const response = await fetch("./public/quotes-database.json");
+    const response = await fetch("public/quotes-database.json");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     return await response.json();
   } catch (error) {
     console.error("Failed to load quotes database:", error);
@@ -72,29 +75,31 @@ function renderQuote(quote, date, index, total) {
 
   if (DEBUG) {
     const debugPanel = document.getElementById("debug-panel");
-    debugPanel.innerHTML = `
-      <div style="margin-bottom: 0.5rem;">
-        <button id="prev-date">←</button>
-        <button id="next-date">→</button>
-      </div>
-      <div class="label">Language:</div>
-      <div class="value">${currentLanguage}</div>
-      <div class="label">Day of Year:</div>
-      <div class="value">${getDayOfYear(date)}</div>
-      <div class="label">Quote Index:</div>
-      <div class="value">${index}</div>
-      <div class="label">Quote:</div>
-      <div class="value">${getQuoteText(quote, currentLanguage)}</div>
-      <div class="label">Author:</div>
-      <div class="value">${quote.author}</div>
-      <div class="label">Source:</div>
-      <div class="value">${quote.source}</div>
-      <div class="label">Total Quotes:</div>
-      <div class="value">${total}</div>
-    `;
+    if (debugPanel) {
+      debugPanel.innerHTML = `
+        <div style="margin-bottom: 0.5rem;">
+          <button id="prev-date">←</button>
+          <button id="next-date">→</button>
+        </div>
+        <div class="label">Language:</div>
+        <div class="value">${currentLanguage}</div>
+        <div class="label">Day of Year:</div>
+        <div class="value">${getDayOfYear(date)}</div>
+        <div class="label">Quote Index:</div>
+        <div class="value">${index}</div>
+        <div class="label">Quote:</div>
+        <div class="value">${getQuoteText(quote, currentLanguage)}</div>
+        <div class="label">Author:</div>
+        <div class="value">${quote.author}</div>
+        <div class="label">Source:</div>
+        <div class="value">${quote.source}</div>
+        <div class="label">Total Quotes:</div>
+        <div class="value">${total}</div>
+      `;
 
-    document.getElementById("prev-date").addEventListener("click", () => updateOffset(-1));
-    document.getElementById("next-date").addEventListener("click", () => updateOffset(1));
+      document.getElementById("prev-date").addEventListener("click", () => updateOffset(-1));
+      document.getElementById("next-date").addEventListener("click", () => updateOffset(1));
+    }
   }
 }
 
@@ -120,7 +125,7 @@ function initLanguageSelector() {
     option.addEventListener('click', (e) => {
       e.stopPropagation();
       const selectedLang = option.dataset.lang;
-      const selectedText = option.textContent;
+      const selectedText = option.textContent.trim();
       
       // Update current language
       currentLanguage = selectedLang;
@@ -171,6 +176,7 @@ let quotes = [];
 
 async function initQuote() {
   quotes = await loadQuotesDatabase();
+  console.log(`Loaded ${quotes.length} quotes`); // Debug log
   initLanguageSelector();
   updateOffset(0);
 }
